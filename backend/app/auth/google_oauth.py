@@ -11,16 +11,6 @@ from google.oauth2.credentials import Credentials
 
 dotenv.load_dotenv()
 
-def get_login_url():
-    params = {
-        "client_id": os.environ["GOOGLE_CLIENT_ID"],
-        "redirect_uri": os.environ["REDIRECT_URI"],
-        "response_type": "code",
-        "scope": "https://www.googleapis.com/auth/gmail.readonly",
-        "access_type": "offline",
-        "prompt": "consent"
-    }
-    return f"https://accounts.google.com/o/oauth2/v2/auth?{urlencode(params)}"
 
 def get_user_info(creds: Credentials):
     authed_session = AuthorizedSession(creds)
@@ -33,9 +23,15 @@ def get_login_url():
         "client_id": os.environ["GOOGLE_CLIENT_ID"],
         "redirect_uri": os.environ["REDIRECT_URI"],
         "response_type": "code",
-        "scope": "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+        "scope": (
+            "openid "
+            "https://www.googleapis.com/auth/userinfo.email "
+            "https://www.googleapis.com/auth/userinfo.profile "
+            "https://www.googleapis.com/auth/gmail.readonly"
+        ),
         "access_type": "offline",
-        "prompt": "consent"
+        "prompt": "consent",
+        "include_granted_scopes": "true",
     }
     return f"https://accounts.google.com/o/oauth2/v2/auth?{urlencode(params)}"
 
@@ -54,9 +50,9 @@ def exchange_code_for_token(code: str):
             "https://www.googleapis.com/auth/gmail.readonly",
             "https://www.googleapis.com/auth/userinfo.email",
             "https://www.googleapis.com/auth/userinfo.profile",
-            "openid",  # <── ADD THIS
+            "openid",
         ],
     )
     flow.redirect_uri = os.environ["REDIRECT_URI"]
-    flow.fetch_token(code=code, include_client_id=True)  # <── ADD include_client_id
+    flow.fetch_token(code=code, include_client_id=True)
     return flow.credentials

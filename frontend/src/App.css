@@ -1,74 +1,122 @@
-.app {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
+.header {
+  /* ensure header text is always centered */
+  text-align: center;
 }
+
+/* Center section titles */
+section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
 
 .header {
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 2rem;
   text-align: center;
+  color: var(--accent);
 }
 
-.meetings, .emails {
+section {
+  width: 100%;
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--card-shadow);
   margin-bottom: 2rem;
 }
 
 .email-card {
-  background: #f5f5f5;
+  background: var(--bg);
   padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  margin-bottom: 1rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  max-width: 600px;
+  transition: all 0.2s ease;
 }
 
-.login-section {
+\.login-section {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 5rem;
 }
 
-.login-button {
-  background: black;
-  color: white;
-  font-size: 1.2rem;
-  padding: 12px 24px;
+\.login-button {
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
-.login-button:hover {
-  background: #333;
+\.login-button:hover {
+  background: #3b3ac5;
 }
 
-.meeting-list {
+\.meeting-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.email-card {
-  background-color: #f5f5f5;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
 .email-card:hover {
-  background-color: #eaeaea;
+  box-shadow: 0 4px 8px var(--card-shadow);
 }
 
 .meeting-notes {
   margin-top: 0.5rem;
   width: 100%;
-  padding: 0.5rem;
-  border-radius: 6px;
+  padding: 0.75rem;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  font-family: inherit;
   font-size: 1rem;
+  font-family: inherit;
+}
+
+/* Meeting list item hover */
+.meeting-list li {
+  background: var(--bg);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  max-width: 600px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.meeting-list li:hover {
+  background: var(--surface);
+}
+
+@media (max-width: 600px) {
+  .header {
+    font-size: 2rem;
+  }
+
+  section {
+    padding: 1rem;
+  }
 }

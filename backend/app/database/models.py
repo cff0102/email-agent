@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Text, DateTime, Boolean
-from app.db import Base
+from app.database.db import Base
 
 class Email(Base):
     __tablename__ = "emails"
@@ -17,3 +17,9 @@ class MeetingNote(Base):
     user_id = Column(String)
     meeting_text = Column(Text)
     note = Column(Text)
+
+
+class EmailSync(Base):
+    __tablename__ = "email_syncs"
+    user_id = Column(String, primary_key=True)
+    last_sync = Column(DateTime)

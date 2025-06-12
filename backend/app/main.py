@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.auth.routes import router as auth_router
 from app.gmail.routes import router as email_router
 from app.database.db import Base, engine
-from app.database.models import Email, MeetingNote
+from app.database.models import Email, MeetingNote, EmailSync
 
 Base.metadata.create_all(bind=engine)
 

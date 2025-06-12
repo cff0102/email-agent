@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
 
-def get_user_messages(access_token: str, refresh_token: str, token_uri: str, client_id: str, client_secret: str, max_results:int):
+def get_user_messages(access_token: str, refresh_token: str, token_uri: str, client_id: str, client_secret: str, max_results: int, after: int = None):
     creds = Credentials(
         token=access_token,
         refresh_token=refresh_token,
@@ -14,7 +14,12 @@ def get_user_messages(access_token: str, refresh_token: str, token_uri: str, cli
 
     try:
         service = build('gmail', 'v1', credentials=creds)
-        results = service.users().messages().list(userId='me', maxResults=max_results).execute()
+        # Fetch messages after the last sync timestamp (epoch seconds) if provided
+        if after:
+            query = f"after:{after}"
+            results = service.users().messages().list(userId='me', maxResults=max_results, q=query).execute()
+        else:
+            results = service.users().messages().list(userId='me', maxResults=max_results).execute()
         messages = results.get('messages', [])
 
         emails = []
